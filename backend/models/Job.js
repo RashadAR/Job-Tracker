@@ -20,7 +20,7 @@ const jobSchema = new mongoose.Schema({
     },
     interviewDate: Date,
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    skills: [String]
+    requiredSkills: [String]
 });
 
 const Job = mongoose.model('Job', jobSchema);
