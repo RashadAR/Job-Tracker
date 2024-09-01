@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet, Link, useNavigate } from 'react-router-dom';
 import "/public/burger.css"
+import "/public/layout.css"
 
 const Layout = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -22,29 +23,40 @@ const Layout = () => {
     };
 
     const NavLinks = ({ mobile = false }) => (
-        <div className={`${mobile ? 'flex flex-col' : 'flex items-center space-x-4'}`}>
+        <div className={`${mobile ? 'flex flex-col space-y-2' : 'flex items-center space-x-4'}`}>
             {isLoggedIn ? (
                 <>
-                    <Link to="/" className="py-2 px-4 hover:bg-blue-700 transition duration-300" onClick={mobile ? toggleMenu : undefined}>Home</Link>
-                    <Link to="/add" className="py-2 px-4 hover:bg-blue-700 transition duration-300" onClick={mobile ? toggleMenu : undefined}>Add Job</Link>
-                    <Link to="/dashboard" className="py-2 px-4 hover:bg-blue-700 transition duration-300" onClick={mobile ? toggleMenu : undefined}>Dashboard</Link>
-                    <button onClick={() => { handleLogout(); if (mobile) toggleMenu(); }} className="py-2 px-4 hover:bg-blue-700 transition duration-300 text-left">Logout</button>
+                    <NavLink to="/" onClick={mobile ? toggleMenu : undefined}>Home</NavLink>
+                    <NavLink to="/add" onClick={mobile ? toggleMenu : undefined}>Add Job</NavLink>
+                    <NavLink to="/dashboard" onClick={mobile ? toggleMenu : undefined}>Dashboard</NavLink>
+                    <button onClick={() => { handleLogout(); if (mobile) toggleMenu(); }} className="nav-link">Logout</button>
                 </>
             ) : (
                 <>
-                    <Link to="/" className="py-2 px-4 hover:bg-blue-700 transition duration-300" onClick={mobile ? toggleMenu : undefined}>Home</Link>
-                    <Link to="/register" className="py-2 px-4 hover:bg-blue-700 transition duration-300" onClick={mobile ? toggleMenu : undefined}>Register</Link>
-                    <Link to="/login" className="py-2 px-4 hover:bg-blue-700 transition duration-300" onClick={mobile ? toggleMenu : undefined}>Login</Link>
+                    <NavLink to="/" onClick={mobile ? toggleMenu : undefined}>Home</NavLink>
+                    <NavLink to="/register" onClick={mobile ? toggleMenu : undefined}>Register</NavLink>
+                    <NavLink to="/login" onClick={mobile ? toggleMenu : undefined}>Login</NavLink>
                 </>
             )}
         </div>
     );
 
+    const NavLink = ({ to, children, onClick }) => (
+        <Link
+            to={to}
+            className="nav-link group relative overflow-hidden"
+            onClick={onClick}
+        >
+            {children}
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out" />
+        </Link>
+    );
+
     return (
-        <div className="min-h-screen flex flex-col">
-            <header className="bg-blue-600 text-white p-4">
+        <div className="min-h-screen flex flex-col bg-gray-100">
+            <header className="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-4 shadow-md">
                 <div className="container mx-auto flex justify-between items-center">
-                    <h1 className="text-2xl font-bold">Job Tracker</h1>
+                    <h1 className="text-3xl font-bold tracking-wide">Job Tracker</h1>
                     <div className="hidden lg:block">
                         <NavLinks />
                     </div>
@@ -64,13 +76,14 @@ const Layout = () => {
                     <NavLinks mobile />
                 </nav>
             </header>
-            <main className="flex-grow p-4">
-                <Outlet />
+            <main className="flex-grow p-4 md:p-8">
+                <div className="container mx-auto">
+                    <Outlet />
+                </div>
             </main>
-            <footer className="bg-gray-800 text-white text-center p-2">
-                <p>&copy; 2024 Job Tracker</p>
+            <footer className="bg-gray-800 text-white text-center p-4">
+                <p>&copy; 2024 Job Tracker | All Rights Reserved</p>
             </footer>
-
         </div>
     );
 };

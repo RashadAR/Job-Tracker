@@ -84,7 +84,7 @@ const HomePage = () => {
                     <motion.li whileHover={{ x: 5 }}>Sign up for an account</motion.li>
                     <motion.li whileHover={{ x: 5 }}>Add your job applications</motion.li>
                     <motion.li whileHover={{ x: 5 }}>Update application statuses as you progress</motion.li>
-                    <motion.li whileHover={{ x: 5 }}>Receive AI-powered suggestions and insights</motion.li>
+                    {/* <motion.li whileHover={{ x: 5 }}>Receive AI-powered suggestions and insights</motion.li> */}
                     <motion.li whileHover={{ x: 5 }}>Visualize your job search journey</motion.li>
                 </ol>
             </motion.section>

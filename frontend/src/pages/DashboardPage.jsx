@@ -2,11 +2,9 @@
 import React, { useState, useEffect, useCallback, Suspense, lazy } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from "../utils/api";
-import ResumeUpload from '../components/ResumeUpload';
 
 // Lazy load components
 const StatusFilter = lazy(() => import('../components/StatusFilter'));
-// const SortJob = lazy(() => import('../components/SortJob'));
 const JobList = lazy(() => import('../components/JobList'));
 
 // Loading component
@@ -16,7 +14,6 @@ const DashboardPage = () => {
     const [jobs, setJobs] = useState([]);
     const [filteredJobs, setFilteredJobs] = useState([]);
     const [statusFilter, setStatusFilter] = useState('All');
-    // const [sortCriteria, setSortCriteria] = useState('');
     const navigate = useNavigate();
 
     const fetchJobs = useCallback(async () => {
@@ -71,25 +68,6 @@ const DashboardPage = () => {
         });
     }, [filteredJobs]);
 
-    // Sort Jobs
-    // const handleSortChange = (e) => {
-    //     const selectedSort = e.target.value;
-    //     setSortCriteria(selectedSort);
-
-    //     const sortedJobs = [...filteredJobs].sort((a, b) => {
-    //         if (selectedSort === 'Title') {
-    //             return a.title.localeCompare(b.title);
-    //         } else if (selectedSort === 'Company') {
-    //             return a.company.localeCompare(b.company);
-    //         } else if (selectedSort === 'Status') {
-    //             return a.status.localeCompare(b.status);
-    //         }
-    //         return 0;
-    //     });
-
-    //     setFilteredJobs(sortedJobs);
-    // };
-
     return (
         <div className="max-w-4xl mx-auto mt-10">
             <h2 className="text-2xl font-bold mb-6">Job Applications</h2>
@@ -99,9 +77,7 @@ const DashboardPage = () => {
                 <>
                     <Suspense fallback={<Loading />}>
                         <StatusFilter value={statusFilter} onChange={handleStatusFilterChange} />
-                        {/* <SortJob value={sortCriteria} onChange={handleSortChange} /> */}
                         <JobList jobs={filteredJobs} onEdit={handleEdit} onDelete={handleDelete} />
-                        <ResumeUpload />
                     </Suspense>
                 </>
             )}

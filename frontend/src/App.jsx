@@ -4,8 +4,8 @@ import HomePage from './pages/HomePage';
 import AddJobPage from './pages/AddJobPage';
 import EditJobPage from './pages/EditJobPage';
 import DashboardPage from './pages/DashboardPage';
-import RegisterPage from './pages/RegisterPage';
-import LoginPage from './pages/LoginPage';
+import { Login } from './pages/AuthForm';
+import { Register } from './pages/AuthForm';
 import PageNotFound from './pages/PageNotFound';
 function App() {
   const isLoggedIn = !!localStorage.getItem('token');
@@ -16,13 +16,12 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<HomePage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
             <Route path="*" element={<PageNotFound />} />
-            <Route path="/add" element={isLoggedIn ? <AddJobPage /> : <LoginPage />} />
-            <Route path="/edit/:id" element={isLoggedIn ? <EditJobPage /> : <LoginPage />} />
-            <Route path="/dashboard" element={isLoggedIn ? <DashboardPage /> : <LoginPage />} />
+            <Route path="/add" element={isLoggedIn ? <AddJobPage /> : <Login />} />
+            <Route path="/edit/:id" element={isLoggedIn ? <EditJobPage /> : <Login />} />
+            <Route path="/dashboard" element={isLoggedIn ? <DashboardPage /> : <Login />} />
           </Route>
         </Routes>
       </BrowserRouter>
