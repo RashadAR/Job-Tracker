@@ -1,4 +1,3 @@
-// src/pages/DashboardPage.js
 import React, { useState, useEffect, useCallback, Suspense, lazy } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from "../utils/api";
@@ -51,22 +50,6 @@ const DashboardPage = () => {
             setFilteredJobs(jobs.filter((job) => job.status === selectedStatus));
         }
     };
-
-    useEffect(() => {
-        filteredJobs.forEach((job) => {
-            if (job.interviewDate) {
-                const interviewTime = new Date(job.interviewDate).getTime();
-                const currentTime = new Date().getTime();
-                const timeDifference = interviewTime - currentTime;
-
-                if (timeDifference > 0) {
-                    setTimeout(() => {
-                        alert(`Reminder: Interview for ${job.title} at ${job.company} is coming up!`);
-                    }, timeDifference);
-                }
-            }
-        });
-    }, [filteredJobs]);
 
     return (
         <div className="max-w-4xl mx-auto mt-10">
